@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QVBoxLayout, QLabel,QTextEdit
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -9,7 +9,19 @@ class MainWindow(QWidget):
         self.setWindowTitle("Main window")
         layout = QVBoxLayout()
         self.setLayout(layout)
-        button = QPushButton("Click me")
+        self.compile_button = QPushButton("Click me")
         label = QLabel("This is the main window!")
+        self.textbox = QTextEdit()
+        self.viewBox = QTextEdit()
+        self.viewBox.setReadOnly(True)
+        self.textbox.setText("Type here")
+        layout.addWidget(self.textbox)
+        layout.addWidget(self.viewBox)
         layout.addWidget(label)
-        layout.addWidget(button)
+        layout.addWidget(self.compile_button)
+        self.compile_button.clicked.connect(self.compile)
+
+
+    def compile(self):
+        source_code = self.textbox.toPlainText()
+        self.viewBox.setPlainText(source_code)
