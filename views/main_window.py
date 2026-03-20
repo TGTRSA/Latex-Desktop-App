@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QVBoxLayout, QLabel,QTextEdit
+import subprocess
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -24,4 +25,9 @@ class MainWindow(QWidget):
 
     def compile(self):
         source_code = self.textbox.toPlainText()
+        print(type(source_code))
+        print(source_code)
+        subprocess.run("ls 'latex_parser'")
+        # output = subprocess.run(f"/home/tash/pythonProds/latex_desktop/latex_app/latex_parser/main {source_code}", capture_output=True)
+        # print(output)
         self.viewBox.setPlainText(source_code)
