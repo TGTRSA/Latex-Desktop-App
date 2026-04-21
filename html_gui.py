@@ -10,11 +10,13 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
 main_page = "views/html_pages/main.html"
 
+latex = r"This is a latex straight from python ! \int{ x + c } dx !"
+
 class Backend(QObject):
     @pyqtSlot(str)  # Keep the parameter
     def home_btn(self, message):
         print("From javascript: %s", message)
-        cmd = ["./a.out", "tash"]
+        cmd = ["latex_parser/./main", "some_latex.txt"]
         subprocess.run(cmd)
 
 
