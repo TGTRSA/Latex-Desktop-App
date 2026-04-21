@@ -3,6 +3,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 import sys
 import os
+import subprocess
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
@@ -12,7 +13,10 @@ main_page = "views/html_pages/main.html"
 class Backend(QObject):
     @pyqtSlot(str)  # Keep the parameter
     def home_btn(self, message):
-        print(f"Button clicked: {message}")
+        print("From javascript: %s", message)
+        cmd = ["./a.out", "tash"]
+        subprocess.run(cmd)
+
 
 class App(QMainWindow):
     def __init__(self):
