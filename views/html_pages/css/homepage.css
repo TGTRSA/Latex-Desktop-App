@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1a1e24;
+    font-family: monospace;
+    padding: 20px;
+}
+
+#fileSection {
+    background: #0d1117;
+    border: 1px solid #2d333b;
+    min-height: 400px;
+}
+
+#fileList {
+    padding: 8px;
+}
+
+.file-item {
+    padding: 8px 12px;
+    color: #c9d1d9;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 1px solid #21262d;
+}
+
+.file-item:hover {
+    background: #161b22;
+}
