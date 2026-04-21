@@ -1,24 +1,45 @@
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 import sys
 import os
 import subprocess
+import json
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
-main_page = "views/html_pages/main.html"
+main_page = "views/html_pages/homepage.html"
+TEX_FILES_DIR = "tex_files/"
 
 latex = r"This is a latex straight from python ! \int{ x + c } dx !"
 
 class Backend(QObject):
-    @pyqtSlot(str)  # Keep the parameter
-    def home_btn(self, message):
-        print("From javascript: %s", message)
+    @pyqtSlot()
+    def compile_btn(self):
         cmd = ["latex_parser/./main", "some_latex.txt"]
         subprocess.run(cmd)
+    
+    @pyqtSlot(str)
+    def logToPython(self, message):
+        """Receive logs from JavaScript"""
+        print(f"[JS]: {message}")
 
+    @pyqtSlot(result=str)
+    def getFileList(self):
+        """Return list of tex files - no path needed from JS"""
+        print("[Python] getFileList called")
+        try:
+            files = os.listdir(TEX_FILES_DIR)
+            print(f"[Python] Files found: {files}")
+            return json.dumps({'files': files, 'error': None})
+        except Exception as e:
+            print(f"[Python] Error: {str(e)}")
+            return json.dumps({'files': [], 'error': str(e)})
+    @pyqtSlot(str)
+    def logToPython(self, message):
+        """Receive logs from JavaScript"""
+        print(f"[JS]: {message}")
 
 class App(QMainWindow):
     def __init__(self):
@@ -51,8 +72,6 @@ class App(QMainWindow):
         self.backend = Backend()
         self.channel = QWebChannel()
         self.channel.registerObject("backend", self.backend)
-
-        # FIXED: Attach channel to page
         self.view.page().setWebChannel(self.channel)
 
         # Configure settings to reduce errors
