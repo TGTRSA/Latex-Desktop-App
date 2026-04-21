@@ -5,45 +5,53 @@
 }
 
 body {
-    font-family: system-ui, sans-serif;
-    background: linear-gradient(135deg, #c8e8e9, #b5d8e0);
-    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    font-family: system-ui, sans-serif;
+    background-color: #0e1513;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.greeting-card {
-    background: rgba(240, 251, 250, 0.96);
-    border-radius: 2rem;
-    padding: 2.5rem;
-    text-align: center;
-    max-width: 500px;
-}
-
-.welcome-sign h1 {
-    background: linear-gradient(120deg, #3b8f9c, #5baeb9);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.aqua-button {
-    background: #cde7e4;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border-radius: 60px;
+#compileBtn {
+    position: relative;
+    top: 2px;
+    left: 75rem;
+    padding: 10px;
+    border-radius: 15px;
+    width: 120px;
+    background: black;
+    color: white;
     cursor: pointer;
-    margin-top: 1rem;
+    border-width: 1px;
+}
+#compileBtn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    /*?box-shadow: 0 4px 12px rgba(0,0,0,15);*/
+
 }
 
-.aqua-button:hover {
-    background: #bcddd9;
+.compileSpace {
+    display: flex;
+    background: black;
+    justify-content: left;
+    flex: content;
+    position: relative;
+    top: 20px;
 }
 
-.message-area {
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
-    color: #2a6b76;
+#displayField { 
+    width: 50rem;
 }
+
+#inputField {
+    padding: 20px;
+    color: white;
+    flex: 1;
+   /* height:calc(100vh-60px);*/
+    border-radius: 20px;
+    border-width: 0px;
+    box-sizing: border-box;
+}
+
