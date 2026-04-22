@@ -7,9 +7,19 @@ let backend = null;
 function readFile(fileName) {
     if(backend){
         backend.readFile(fileName);
+        backend.sendtex.connect(function(tex){
+            // let slice = tex.slice(0,20);
+            backend.logToPython(tex);
+            localStorage.setItem('texInput', tex);
+            window.location ="compiler.html";
+            window.location.href = "compiler.html";
+        });
     }else {
         str = "[JS:readFile] Cannot connect to python";
         backend.logToPython(str);
+        
+        // localStorage.setItem('tex', );
+        // window.location = 'compiler.html'
     }
 }
 

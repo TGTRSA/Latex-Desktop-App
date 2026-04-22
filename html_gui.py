@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject, pyqtSlot, QVariant
+from PyQt5.QtCore import QObject, pyqtSlot, QVariant, pyqtSignal
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWebChannel import QWebChannel
 import sys
@@ -15,6 +15,8 @@ TEX_FILES_DIR = "tex_files/"
 latex = r"This is a latex straight from python ! \int{ x + c } dx !"
 
 class Backend(QObject):
+    sendtex = pyqtSignal(str)
+
     @pyqtSlot()
     def compile_btn(self):
         cmd = ["latex_parser/./main", "some_latex.txt"]
@@ -48,10 +50,12 @@ class Backend(QObject):
         try:
             with open(path, "r") as f:
                 content = f.read()
-                print(f"File content: {content}")
+                # print(f"File content: {content}")
+                self.sendtex.emit(content)
             print("[PYTHON] EOF")
         except Exception as e:
             print(f"[PYTHON:readFile] Error: {e}")
+
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
