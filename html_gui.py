@@ -17,6 +17,10 @@ latex = r"This is a latex straight from python ! \int{ x + c } dx !"
 class Backend(QObject):
     sendtex = pyqtSignal(str)
 
+    @pyqtSlot(str)
+    def saveContent(self, content):
+        print(f"[PYTHON] Content to save: {content[0:20]}")
+
     @pyqtSlot()
     def compile_btn(self):
         cmd = ["latex_parser/./main", "some_latex.txt"]
