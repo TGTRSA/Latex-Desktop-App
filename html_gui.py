@@ -19,7 +19,7 @@ class Backend(QObject):
     def compile_btn(self):
         cmd = ["latex_parser/./main", "some_latex.txt"]
         subprocess.run(cmd)
-    
+
     @pyqtSlot(str)
     def logToPython(self, message):
         """Receive logs from JavaScript"""

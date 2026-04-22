@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
-    <button onclick="loadFiles()">Refresh</button>
+    <div class="file-btns">
+        <button onclick="window.location.href='compiler.html'">New file</button>
+        <button onclick="loadFiles()">Refresh</button>    
+    </div>
     <div id="fileSection">
         <div id="fileList"></div>
     </div>
