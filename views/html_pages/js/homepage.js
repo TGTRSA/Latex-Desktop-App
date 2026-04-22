@@ -4,6 +4,15 @@ const NO_FILES_MESSAGE = 'No files found';
 
 let backend = null;
 
+function readFile(fileName) {
+    if(backend){
+        backend.readFile(fileName);
+    }else {
+        str = "[JS:readFile] Cannot connect to python";
+        backend.logToPython(str);
+    }
+}
+
 function logToPython(message) {
     if (backend) {
         backend.logToPython(message);
@@ -38,6 +47,7 @@ function displayFiles(files) {
         
         fileElement.addEventListener('click', () => {
             logToPython('[click] User selected file: ' + file);
+            readFile(file);
         });
         
         container.appendChild(fileElement);

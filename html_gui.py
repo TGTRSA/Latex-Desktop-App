@@ -36,11 +36,22 @@ class Backend(QObject):
         except Exception as e:
             print(f"[Python] Error: {str(e)}")
             return json.dumps({'files': [], 'error': str(e)})
+   
     @pyqtSlot(str)
     def logToPython(self, message):
         """Receive logs from JavaScript"""
         print(f"[JS]: {message}")
 
+    @pyqtSlot(str)
+    def readFile(self, filename):
+        path = rf"{TEX_FILES_DIR}/{filename}"
+        try:
+            with open(path, "r") as f:
+                content = f.read()
+                print(f"File content: {content}")
+            print("[PYTHON] EOF")
+        except Exception as e:
+            print(f"[PYTHON:readFile] Error: {e}")
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
