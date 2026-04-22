@@ -11,6 +11,7 @@ function readFile(fileName) {
             // let slice = tex.slice(0,20);
             backend.logToPython(tex);
             localStorage.setItem('texInput', tex);
+            localStorage.setItem('fileName', fileName);
             window.location ="compiler.html";
             window.location.href = "compiler.html";
         });

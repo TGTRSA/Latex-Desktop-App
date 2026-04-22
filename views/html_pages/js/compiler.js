@@ -1,3 +1,24 @@
+
+let backend = null;
+
+function saveContent(){
+    const inputText = document.getElementById("inputField").value;
+    if(backend){
+        backend.saveContent(inputText);
+    }else {
+        let error = "[JS:saveContent] Cannot call backend"
+        backend.logToPython(error);
+    }
+}
+
+function logToPython(message) {
+    if (backend) {
+        backend.logToPython(message);
+    } else {
+        console.log(message);
+    }
+}
+
 (function() {
             const compileBtn = document.getElementById('compileBtn');
             const inputField = document.getElementById('inputField');
@@ -56,6 +77,21 @@
         })();
 
 document.addEventListener('DOMContentLoaded', function() {
+    let fileName = localStorage.getItem('fileName');
     let tex_input = localStorage.getItem('texInput');
     document.getElementById("inputField").value = tex_input;
+    document.getElementById("fileName").innerText   = fileName;
+    // Initialize Qt bridge
+    logToPython('[init] Checking for Qt WebChannel');
+    if (typeof qt !== 'undefined' && qt.webChannelTransport) {
+        logToPython('[init] Qt WebChannel detected, initializing...');
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            backend = channel.objects.backend;
+            logToPython('[init] Backend connected successfully');
+        });
+    } else {
+        logToPython('[init] WARNING: Qt WebChannel not available');
+}
+
 });
+
