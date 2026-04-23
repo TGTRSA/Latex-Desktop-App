@@ -10,10 +10,10 @@ function readFile(fileName) {
         backend.sendtex.connect(function(tex){
             // let slice = tex.slice(0,20);
             backend.logToPython(tex);
-            localStorage.setItem('texInput', tex);
-            localStorage.setItem('fileName', fileName);
+            sessionStorage.setItem('texInput', tex);
+            sessionStorage.setItem('fileName', fileName);
             window.location ="compiler.html";
-            window.location.href = "compiler.html";
+            location.href = "compiler.html";
         });
     }else {
         str = "[JS:readFile] Cannot connect to python";
