@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
 main_page = "views/html_pages/homepage.html"
+# @file 
 TEX_FILES_DIR = "tex_files/"
 
 latex = r"This is a latex straight from python ! \int{ x + c } dx !"
@@ -17,26 +18,41 @@ latex = r"This is a latex straight from python ! \int{ x + c } dx !"
 class Backend(QObject):
     sendtex = pyqtSignal(str)
 
-    @pyqtSlot(str)
-    def saveContent(self, content):
+    # @brief This function takes whatever content is served from the compiler.html input field via the saveContent
+    # @param content: string
+    @pyqtSlot(str, str)
+    def saveContent(self, fileName, content):
         print(f"[PYTHON] Content to save: {content[0:20]}")
+        directory = f"{TEX_FILES_DIR}/{fileName}"
+        cmd = ["./file_handler", directory, content]
+        subprocess.run(cmd)
+        # rm_file = input("Would you like to remove the file?\0: No \1: Yes")
+        # os.remove()
 
-    @pyqtSlot()
-    def compile_btn(self):
-        cmd = ["latex_parser/./main", "some_latex.txt"]
+    # @brief runs the latex parse so we can start the compile stage 
+    # @params takes in some content from the input 
+    @pyqtSlot(str)
+    def compile_btn(self, content):
+        cmd = ["latex_parser/./main", content]
         subprocess.run(cmd)
 
+    # @brief runs a simply log
     @pyqtSlot(str)
     def logToPython(self, message):
         """Receive logs from JavaScript"""
         print(f"[JS]: {message}")
 
+    # @brief retrieves the list of files from a particular directory and sends it to the js file
     @pyqtSlot(result=str)
     def getFileList(self):
         """Return list of tex files - no path needed from JS"""
         print("[Python] getFileList called")
         try:
             files = os.listdir(TEX_FILES_DIR)
+           
+            for file in files:
+                file.split(".", 0)
+
             print(f"[Python] Files found: {files}")
             return json.dumps({'files': files, 'error': None})
         except Exception as e:
@@ -50,7 +66,7 @@ class Backend(QObject):
 
     @pyqtSlot(str)
     def readFile(self, filename):
-        path = rf"{TEX_FILES_DIR}/{filename}"
+        path = rf"{TEX_FILES_DIR}{filename}"
         try:
             with open(path, "r") as f:
                 content = f.read()
@@ -61,6 +77,7 @@ class Backend(QObject):
             print(f"[PYTHON:readFile] Error: {e}")
 
 class App(QMainWindow):
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Pastel Aquatic Greeting")

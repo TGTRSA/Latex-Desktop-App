@@ -1,0 +1,2 @@
+Thinking of refactoring the codebase into a protocol driven app where javascript pushses some json of:
+    - {function name, some stuff needed for the function}, and python processes this and does such a function

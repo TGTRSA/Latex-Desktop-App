@@ -22,49 +22,12 @@ struct File {
     std::string dir;        // solely used for directory
 
     // well ... im sure u can tell
-    void create(const char* filename,std::string directory, std::string filetype) {
-        this->path = directory + "/" + filename + filetype;
-        this->dir = directory;
-        std::cout << "Attempting to create: " << path << std::endl;
-        std::ofstream file(this->path);
-        file << content;
-        file.close();
-    };
+    void create(const char* filename,std::string directory, std::string filetype);
 
     // removes the file
-    int rm(){
-        try{std::filesystem::remove(this->path);
-            printf("File deleted\n");
-            return 0;
-        }catch (const std::filesystem::filesystem_error& e) {
-            printf("Error: %s\n", e.what());
-            return -1;
-        }
+    int rm();
 
-    }
-
-    void to_pdf(){
-        std::vector<std::string> cmd_base = {
-            "latex -output-directory=","pdflatex "
-        };
-        int n_commands = cmd_base.size();
-        for(int i=0;i<n_commands;i++){
-            std::stringstream cmd;
-
-            if(i==0){
-                system("cd latex_files");
-                cmd << cmd_base[i] << this->dir << " " << this->path;
-            }if(i!=0){
-                cmd << cmd_base[i] << this->path;
-            }
-            std::string cmd_string = cmd.str();
-            std::cout << "Running: " << cmd_string.c_str() << "\n";
-            // std::cout << "Attempting:" <<  printable;
-            system(cmd_string.c_str());
-        }
-        // system(cmd_string.c_str());
-
-    }
+    void to_pdf();
 
 };
 

@@ -1,10 +1,17 @@
 
 let backend = null;
 
+// @ brief retrieves the file name and content from the input field to pass to python which passes it to cpp
+
 function saveContent(){
     const inputText = document.getElementById("inputField").value;
+    const fileName  = document.getElementById("fileName").textContent;
+    if(!fileName){
+        alert("Please name the document first");
+        return;
+    } 
     if(backend){
-        backend.saveContent(inputText);
+        backend.saveContent(fileName, inputText);
     }else {
         let error = "[JS:saveContent] Cannot call backend"
         backend.logToPython(error);
