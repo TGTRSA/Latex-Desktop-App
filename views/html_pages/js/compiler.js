@@ -84,10 +84,13 @@ function logToPython(message) {
         })();
 
 document.addEventListener('DOMContentLoaded', function() {
+    // set file name if exists
     let fileName = localStorage.getItem('fileName');
     let tex_input = localStorage.getItem('texInput');
-    document.getElementById("inputField").value = tex_input;
-    document.getElementById("fileName").innerText   = fileName;
+    if(tex_input && fileName){
+        document.getElementById("inputField").value     = tex_input;
+        document.getElementById("fileName").innerText   = fileName.split(".")[0];
+    }
     // Initialize Qt bridge
     logToPython('[init] Checking for Qt WebChannel');
     if (typeof qt !== 'undefined' && qt.webChannelTransport) {

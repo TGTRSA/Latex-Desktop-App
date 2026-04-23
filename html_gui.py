@@ -49,9 +49,6 @@ class Backend(QObject):
         print("[Python] getFileList called")
         try:
             files = os.listdir(TEX_FILES_DIR)
-           
-            for file in files:
-                file.split(".", 0)
 
             print(f"[Python] Files found: {files}")
             return json.dumps({'files': files, 'error': None})

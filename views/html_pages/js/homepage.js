@@ -54,7 +54,8 @@ function displayFiles(files) {
     files.forEach(file => {
         const fileElement = document.createElement('div');
         fileElement.className = FILE_ITEM_CLASS;
-        fileElement.textContent = file;
+        const fileName = file.split(".")[0]; 
+        fileElement.textContent = fileName;
         
         fileElement.addEventListener('click', () => {
             logToPython('[click] User selected file: ' + file);
