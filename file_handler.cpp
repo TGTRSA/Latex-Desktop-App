@@ -1,5 +1,7 @@
 #include "file_handler.h"
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 void InputFile::get_file_contents(char *filename) {
     std::string tmp_string;
@@ -59,15 +61,20 @@ void File::to_pdf(){
 
 }
 
-int main(int argv, char** argc) {
-    printf("Args: %d\n", argv);
+int main(int argc, char** argv) {
+    printf("Args: %d\n", argc);
     // size_t n_args = ;
-    if(argv>3){
+    if(argc>3){
         printf("Too many values\n");
         return 0;
     }else {
-        char* directory = argc[1];
-        char* content   = argc[2];
+        const char* extention = ".tex";
+        const char* folder = argv[1];
+        size_t len = strlen(extention)+ strlen(folder);
+        char* directory = (char *)malloc(len);
+        strcpy(directory, folder);
+        strcat(directory,extention);
+        char* content   = argv[2];
         printf("[CPP] Directory: %s\n\t[CPP] Content: %s\n", directory, content);
     }
 
