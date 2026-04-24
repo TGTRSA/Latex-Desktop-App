@@ -7,8 +7,11 @@
 </head>
 <body>
     <div class="file-btns">
-        <button onclick="createNewFile()">New file</button>
-        <button onclick="loadFiles()">Refresh</button>    
+        <button id="newFileBtn" onclick="createNewFile()">
+            <img id="plus-icon" src="icons/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            <span id="text">New file</span>
+        </button>
+        <button id="refreshBtn" onclick="loadFiles()">Refresh</button>    
     </div>
     <div id="fileSection">
         <div id="fileList"></div>
