@@ -9,9 +9,12 @@
     <div class="file-btns">
         <button id="newFileBtn" onclick="createNewFile()">
             <img id="plus-icon" src="icons/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            <span id="text">New file</span>
+            <span id="newFiletext">New file</span>
         </button>
-        <button id="refreshBtn" onclick="loadFiles()">Refresh</button>    
+        <button id="refreshBtn" onclick="loadFiles()">
+            <span id="refreshBtnText">Refresh</span>
+           <img src="icons/restart_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+        </button>    
     </div>
     <div id="fileSection">
         <div id="fileList"></div>

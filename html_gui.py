@@ -9,7 +9,7 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
-main_page = "views/html_pages/homepage.html"
+main_page = "views/homepage.html"
 # @file 
 TEX_FILES_DIR = "tex_files/"
 
