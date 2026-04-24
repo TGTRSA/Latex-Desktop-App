@@ -21,13 +21,10 @@ class Backend(QObject):
     # @brief This function takes whatever content is served from the compiler.html input field via the saveContent
     # @param content: string
     @pyqtSlot(str, str)
-    def saveContent(self, fileName, content):
+    def saveContent(self, fileName: str, content: str):
         print(f"[PYTHON] Content to save: {content[0:20]}")
-        directory = f"{TEX_FILES_DIR}/{fileName}"
-        cmd = ["./file_handler", directory, content]
+        cmd = ["python", "src/file_handler.py", rf"{fileName}", rf"{content}"]
         subprocess.run(cmd)
-        # rm_file = input("Would you like to remove the file?\0: No \1: Yes")
-        # os.remove()
 
     # @brief runs the latex parse so we can start the compile stage 
     # @params takes in some content from the input 

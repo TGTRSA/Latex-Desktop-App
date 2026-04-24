@@ -4,6 +4,13 @@ const NO_FILES_MESSAGE = 'No files found';
 
 let backend = null;
 
+function createNewFile(){
+    sessionStorage.setItem('texInput', '');
+    sessionStorage.setItem('fileName', '');
+    // window.location = "compiler.html";
+    location.href   = "compiler.html"
+}
+
 function readFile(fileName) {
     if(backend){
         backend.readFile(fileName);
@@ -12,7 +19,7 @@ function readFile(fileName) {
             backend.logToPython(tex);
             sessionStorage.setItem('texInput', tex);
             sessionStorage.setItem('fileName', fileName);
-            window.location ="compiler.html";
+            // window.location ="compiler.html";
             location.href = "compiler.html";
         });
     }else {
