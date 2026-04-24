@@ -8,18 +8,24 @@
 </head>
 <body>
     <div class="container">
-    <h1 id="fileName" contenteditable="true" ></h1>
-
         <div class="toolbar">
-            
-            <button>Add</button>
-            <button onclick="saveContent()">Save</button>
-            <button onclick="window.location.href='homepage.html'">Home</button>
+
+            <input placeholder="File Name" id="fileName" title="File Name"></input>
+            <button id="addBtn">
+                <img src="icons/add_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            </button>
+            <button onclick="saveContent()" id="saveBtn" >
+                <img src="icons/check_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            </button>
+            <button onclick="window.location.href='homepage.html'" id="homeBtn">
+                <img src="icons/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            </button>
             <button id="compileBtn">Compile</button>
+        
         </div>
+        
         <div class="split-view">
             <div class="panel panel-input">
-               
                 <textarea id="inputField" placeholder="Type here"></textarea>
             </div>
             <div class="panel panel-output">
