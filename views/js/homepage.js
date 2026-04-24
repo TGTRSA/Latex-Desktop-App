@@ -3,7 +3,7 @@ const FILE_ITEM_CLASS = 'file-item';
 const NO_FILES_MESSAGE = 'No files found';
 
 let backend = null;
-
+let backendConnected= false;
 function createNewFile(){
     sessionStorage.setItem('texInput', '');
     sessionStorage.setItem('fileName', '');
@@ -11,23 +11,24 @@ function createNewFile(){
     location.href   = "compiler.html"
 }
 
+let pendingFile = null;
+let signalConnected = false;
+
 function readFile(fileName) {
     if(backend){
-        backend.readFile(fileName);
-        backend.sendtex.connect(function(tex){
-            // let slice = tex.slice(0,20);
-            // backend.logT.oPython(tex);
-            sessionStorage.setItem('texInput', tex);
-            sessionStorage.setItem('fileName', fileName);
-            // window.location ="compiler.html";
-            location.href = "compiler.html";
-        });
-    }else {
-        str = "[JS:readFile] Cannot connect to python";
-        backend.logToPython(str);
+        pendingFile = fileName;  // Store which file we want
         
-        // localStorage.setItem('tex', );
-        // window.location = 'compiler.html'
+        if (!signalConnected) {
+            // Connect signal only once
+            backend.sendtex.connect(function(tex){
+                sessionStorage.setItem('texInput', tex);
+                sessionStorage.setItem('fileName', pendingFile);
+                location.href = "compiler.html";  // Navigate ONCE here
+            });
+            signalConnected = true;
+        }
+        
+        backend.readFile(fileName);  // This triggers the signal
     }
 }
 
@@ -64,8 +65,9 @@ function displayFiles(files) {
         const fileName = file.split(".")[0]; 
         fileElement.textContent = fileName;
         
-        fileElement.addEventListener('click', () => {
+        fileElement.addEventListener('click', (e) => {
             logToPython('[click] User selected file: ' + file);
+            e.stopPropagation();
             readFile(file);
         });
         
