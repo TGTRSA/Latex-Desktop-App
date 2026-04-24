@@ -16,7 +16,7 @@ function readFile(fileName) {
         backend.readFile(fileName);
         backend.sendtex.connect(function(tex){
             // let slice = tex.slice(0,20);
-            backend.logToPython(tex);
+            // backend.logT.oPython(tex);
             sessionStorage.setItem('texInput', tex);
             sessionStorage.setItem('fileName', fileName);
             // window.location ="compiler.html";

@@ -18,25 +18,15 @@ void InputFile::get_file_contents(char *filename) {
     }
 }
 
-void File::create() {
+void FileOb::create() {
     printf("Attempting to create: %s in %s\n", filename, path);
-    std::ofstream file(this->path);
-    if(!file.is_open()){
-        std::cerr << "Failed to open file\n";
-        return;
-    }
-    file << content;
-    file.close();
-    if(file.fail()){
-        std::cerr << "Write failed\n";
-        return;
-    }else {
-        printf("Write succeded\n");
-    }
+    FILE *f = fopen(path,"wb");
+    fwrite(this->content, sizeof(this->content), strlen(this->content), f);
+    fclose(f);
 };
 
     // removes the file
-int File::rm(){
+int FileOb::rm(){
     try{std::filesystem::remove(this->path);
         printf("File deleted\n");
         return 0;
@@ -45,8 +35,8 @@ int File::rm(){
         return -1;
     }
 }
-
-void File::to_pdf(){
+// @ brief runs the sys command to convert the .tex file to pdf
+void FileOb::to_pdf(){
     std::vector<std::string> cmd_base = {
         "latex -output-directory=","pdflatex "
     };
@@ -76,7 +66,7 @@ int main(int argc, char** argv) {
         printf("Too many values\n");
         return 0;
     }else {
-        File f;
+        FileOb f;
         const char* directory = "tex_files/";
         const char* extention = ".tex";
         const char* fileName = argv[1];
@@ -93,6 +83,8 @@ int main(int argc, char** argv) {
         f.filename = fileName;
         f.path = path;
         f.dir = directory;
+        printf("This is the directory: %s\nThis is the path: %s\nThis is the filename: %s\n", f.dir, f.path, f.filename);
+        
         f.create();
 
     }

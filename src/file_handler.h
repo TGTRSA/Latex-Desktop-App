@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
+#include "stdio.h"
 #include <vector>
 
 // struct for handling the latex file
@@ -16,7 +17,7 @@ struct InputFile {
 };
 
 // Base struct for handling files
-struct File {
+struct FileOb {
     const char* content;    // actual content
     const char* path;       // full path
     const char* dir;        // solely used for directory
