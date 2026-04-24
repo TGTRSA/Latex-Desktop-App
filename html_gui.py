@@ -23,8 +23,9 @@ class Backend(QObject):
     @pyqtSlot(str, str)
     def saveContent(self, fileName: str, content: str):
         print(f"[PYTHON] Content to save: {content[0:20]}")
-        cmd = ["python", "src/file_handler.py", rf"{fileName}", rf"{content}"]
+        cmd = ["./file_handler", fileName,content]
         subprocess.run(cmd)
+        
 
     # @brief runs the latex parse so we can start the compile stage 
     # @params takes in some content from the input 
