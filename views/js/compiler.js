@@ -5,7 +5,7 @@ let backend = null;
 
 function saveContent(){
     const inputText = document.getElementById("inputField").value;
-    const fileName  = document.getElementById("fileName").textContent;
+    const fileName  = document.getElementById("fileName").value;
     if(!fileName){
         alert("Please name the document first");
         return;
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileName  = sessionStorage.getItem('fileName');
     const tex_input = sessionStorage.getItem('texInput');
     document.getElementById("inputField").value     = tex_input;
-    document.getElementById("fileName").innerText   = fileName.split(".")[0];
+    document.getElementById("fileName").value   = fileName.split(".")[0];
     sessionStorage.removeItem('fileName');
     sessionStorage.removeItem('texInput');
 
