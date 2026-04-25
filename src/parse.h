@@ -60,7 +60,7 @@ class Parser {
         std::string         string_content;
         Token               current_token;
         void print_();
-        void compile_latex();
+        std::string compile_latex();
         void write_header(Token& current_token, size_t indx, Document::paragraph par);
 
 };
@@ -81,7 +81,7 @@ inline void Parser::write_header(Token& current_token, size_t p_indx, Document::
 }
 
 // writes the tokens to latex code and compiles 
-inline void Parser::compile_latex(){
+inline std::string  Parser::compile_latex(){
     this->string_content+="\\documentclass{article}";
     std::string header_files;
     size_t l_p = this->doc_content.size();
@@ -132,7 +132,8 @@ inline void Parser::compile_latex(){
             }
         }
     }
-    string_content+="\n\\end{document}";
+    string_content+="\n\\end{document}\n";
+    return string_content;
 }
 
 // checks if content followed by # is a header file
@@ -311,7 +312,7 @@ inline Document::full_ lex_content(const std::string& file_content){
     for(int i = 0 ; i<l_p;i++){
         int paragraphs = full_[0].size();
         Document::paragraph p = full_[i];
-        printf("len of paragraphs: %d", paragraphs);
+        printf("len of paragraphs: %d\n", paragraphs);
         for(int j = 0;j<paragraphs;j++){
             Document::sentence sen = p[j];
             int sen_len = sen.size();
