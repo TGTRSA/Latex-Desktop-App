@@ -6,37 +6,60 @@
     <title>Compiler</title>
     <link rel="stylesheet" href="css/compiler.css">
 </head>
+
 <body>
     <div class="container">
+
         <div class="toolbar">
 
-            <input placeholder="File Name" id="fileName" title="File Name"></input>
-            <button id="addBtn">
-                <img src="icons/add_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            </button>
-            <button onclick="saveContent()" id="saveBtn" >
-                <img src="icons/check_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            </button>
-            <button onclick="window.location.href='homepage.html'" id="homeBtn">
-                <img src="icons/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-            </button>
-            <button id="compileBtn">Compile</button>
-        
+            <input placeholder="File Name" id="fileName" title="File Name">
+
+            <div class="toolbar-group">
+
+                <button id="addBtn">
+                    <img src="icons/add_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <span>New</span>
+                </button>
+
+                <button id="saveBtn" onclick="saveContent()">
+                    <img src="icons/check_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <span>Save</span>
+                </button>
+
+                <button id="homeBtn" onclick="window.location.href='homepage.html'">
+                    <img src="icons/home_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <span>Home</span>
+                </button>
+
+                <button id="compileBtn">Compile</button>
+
+            </div>
+
         </div>
-        
+
         <div class="split-view">
+
             <div class="panel panel-input">
                 <textarea id="inputField" placeholder="Type here"></textarea>
             </div>
+
             <div class="panel panel-output">
-            
                 <div class="pdf-container">
-                    <object id="displayField" type="application/pdf" data="">
-                        <p>PDF viewer not supported. <a href="#">Download PDF</a></p>
-                    </object>
+
+                    <div class="pdf-empty-state">
+                        <div class="pdf-title">PDF space</div>
+                        <div class="pdf-subtitle">PDF will appear here after compile</div>
+                    </div>
+
+                    <div class="pdf-download">
+                        <a href="#">Download PDF</a>
+                    </div>
+
                 </div>
             </div>
+
         </div>
+
     </div>
 
     <script src="js/compiler.js"></script>
